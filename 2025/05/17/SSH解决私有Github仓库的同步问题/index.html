@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="SSH解决私有Github仓库的同步问题" />
+    <meta name="hexo-theme-A4" content="v1.9.8" />
+    <link rel="alternate icon" type="image/webp" href="/img/pillow.webp">
+    <title>Xiaohu&#39;s Blog | 小虎的博客</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery-bundle.min.css">
+
+
+   
+        
+<link rel="stylesheet" href="/css/custom.css">
+
+    
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+        <style>
+            .index-main{
+                max-width:  880px;
+            }
+        </style>
+
+    
+    
+
+
+
+    
+
+    
+    
+
+
+
+
+    
+    <style>
+        :root {
+            --waline-theme-color: #9e5345; 
+            --waline-color: #9e5345; 
+            --waline-border-color: #9e5345; 
+            --waline-white: #9e5345; 
+            --waline-bgcolor-light: #efeae2;  
+        }
+        body {
+            color: #9e5345;
+            background: #e8e0c9;
+        }
+        .post-md code {
+            background: #e8e0c9;
+            color: #2e5041; 
+        }
+        .post-md pre, .post-md .highlight {
+            background: #e8e0c9;
+            color: #2e5041; 
+        }
+        pre .string, pre .value, pre .inheritance, pre .header, pre .ruby .symbol, pre .xml .cdata {
+            color: #9e5345;
+        }
+        pre .number, pre .preprocessor, pre .built_in, pre .literal, pre .params, pre .constant {
+            color: #9e5345;
+        }
+        .year-font-color {
+            color: #9e5345 !important;
+        }
+        .wl-card span.wl-nick {
+            color: #9e5345; 
+        }
+        .wl-card .wl-badge {
+            border: 1px solid #9e5345;
+            color: #9e5345; 
+        }
+        .wl-btn {
+            border: 1px solid #9e5345; 
+            color:  #9e5345;  
+        }
+        .wl-btn.primary {
+            color: #efeae2; 
+        }
+        .wl-header label {
+            color: #9e5345;
+        }
+        a {
+            color: #2e5041;
+        }
+
+        .post-md a {
+            color: #2e5041;
+        }
+
+        .nav li a {
+            color: #2e5041;
+        }
+
+        .archive-main a:link {
+            color: #2e5041;
+        }
+        .archive-main a:visited {
+            color: #9c9caf; 
+        }
+
+        .archive li span {
+            color: #9e5345;
+        }
+
+        .post-main-title {
+            color: #9e5345;
+        }
+
+        .post-md h1,
+        .post-md h2,
+        .post-md h3,
+        .post-md h4,
+        .post-md h5,
+        .post-md h6 {
+            color: #9e5345;
+        }
+
+        [data-waline] p {
+            color: #9e5345;
+        }
+        [data-waline] a {
+            color: #9e5345;
+        } 
+        .wl-sort li.active {
+            color: #9e5345;
+        }
+
+        .wl-card .wl-meta>span {
+            background: #efeae2;
+        }
+
+        .paper {
+            background: #e8e0c9;
+        }
+
+        .index-main {
+            background: #efeae2;
+        }
+
+        .paper-main {
+            background: #efeae2;
+        }
+
+        .wl-panel {
+            background: #efeae2;
+        }
+
+        .archive li:nth-child(odd) {
+            background: #efeae2;
+            ;
+        }
+
+        .archive li:nth-child(even) {
+            background: #efeae2;
+        }
+
+        .post-md table tr:nth-child(odd) td {
+            background: #efeae2;
+        }
+
+        .post-md table tr:nth-child(even) td {
+            background: #efeae2;
+        }
+
+    
+        .progress-wrap::after {
+            color: #9e5345; /* 箭头的颜色 */
+        }
+        .progress-wrap svg.progress-circle path {
+	        stroke: #9e5345; /* 边框的颜色 */
+        }
+        .progress-wrap::before {
+	        background-image: linear-gradient(298deg, #2e5041, #2e5041); /* 鼠标滑过的箭头颜色 */
+         }
+
+        .return-to-last-progress-wrap::after {
+            color: #9e5345; /* 箭头的颜色 */
+        }
+        .return-to-last-progress-wrap svg.progress-circle path {
+	        stroke: #9e5345; /* 边框的颜色 */
+        }
+        .return-to-last-progress-wrap::before {
+	        background-image: linear-gradient(298deg, #2e5041, #2e5041); /* 鼠标滑过的箭头颜色 */
+         }
+
+         .left-toc-container::-webkit-scrollbar-thumb {
+            background-color: #9e5345; /* 设置滚动条拖动块的颜色 */
+        }
+
+        .bs-docs-sidebar .nav>.active>a,
+        .bs-docs-sidebar .nav>li>a:hover,
+        .bs-docs-sidebar .nav>li>a:focus {
+            color: #2e5041;
+            border-left-color: #2e5041;
+        }
+        .bs-docs-sidebar .nav>li>a {
+            color:  #9e5345;
+        }
+    </style>
+
+    
+
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        <script>
+            const options = {
+                bottom: '40px', // default: '32px'
+                right: 'unset', // default: '32px'
+                left: '42px', // default: 'unset'
+                time: '0.3s', // default: '0.3s'
+                mixColor: '#fff', // default: '#fff'
+                backgroundColor: ' #e8e0c9  ',  // default: '#fff'
+                buttonColorDark: '#100f2c',  // default: '#100f2c'
+                buttonColorLight: '#fff', // default: '#fff'
+                saveInCookies: true, // default: true,
+                label: '🌓', // default: ''
+                autoMatchOsTheme: true // default: true
+            }
+            const darkmode = new Darkmode(options);
+            darkmode.showWidget();
+        </script>
+        
+        
+            
+                <div class="left-toc-container">
+                    <nav id="toc" class="bs-docs-sidebar"></nav>
+                </div>
+            
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <style>
+            .header-img {
+                width: 56px;
+                height: auto;
+                object-fit: cover; /* 保持图片比例 */
+                transition: transform 0.3s ease-in-out; 
+                border-radius: 0; 
+            }
+            
+        </style>
+        <img 
+            alt="^-^" 
+            cache-control="max-age=86400" 
+            class="header-img" 
+            src="/img/pillow.webp" 
+        />
+        <div class="header-content">
+            <a class="logo" href="/">Xiaohu&#39;s Blog</a> 
+            <span class="description"></span> 
+        </div>
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+    
+
+    
+        
+            
+                <div class="post-main-title" style="text-align: center;">
+                    SSH解决私有Github仓库的同步问题
+                </div>
+            
+        
+      
+    
+
+    
+
+        
+            <div class="post-head-meta-center">
+        
+                
+                    <span>最近更新：2025-05-17</span> 
+                
+                
+                    
+                        &nbsp; | &nbsp;
+                    
+                     <span>字数总计：776</span>
+                
+                
+                    
+                        &nbsp; | &nbsp;
+                    
+                    <span>阅读估时：3分钟</span>
+                
+                
+            </div>
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AE%A4%E8%AF%81%E4%B8%8E%E8%BF%9E%E6%8E%A5"><span class="post-toc-text">认证与连接</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%94%9F%E6%88%90SSH%E5%85%AC%E9%92%A5%E4%B8%8E%E7%A7%81%E9%92%A5"><span class="post-toc-text">生成SSH公钥与私钥</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%E5%AF%86%E9%92%A5"><span class="post-toc-text">管理多个密钥</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%8A%E4%BC%A0%E5%85%AC%E9%92%A5%E5%88%B0Github"><span class="post-toc-text">上传公钥到Github</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%AA%8C%E8%AF%81%E8%BF%9E%E6%8E%A5"><span class="post-toc-text">验证连接</span></a></li></ol></li></ol>
+            
+        
+        <div class=".article-gallery"><h2 id="认证与连接"><a href="#认证与连接" class="headerlink" title="认证与连接"></a>认证与连接</h2><p>安装好Git后，可以通过SSH设置来解决私有仓库的连接与认证问题</p>
+<h3 id="生成SSH公钥与私钥"><a href="#生成SSH公钥与私钥" class="headerlink" title="生成SSH公钥与私钥"></a><strong>生成SSH公钥与私钥</strong></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C &quot;your-email@example.com&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>ssh-keygen</code>是SSH生成公钥私钥的命令</li>
+<li><code>-t ed25519</code>指定了密钥类型为 Ed25519。ed25519表示一种<strong>SSH 密钥类型</strong>，具体来说，它是一种使用 EdDSA（椭圆曲线数字签名算法）协议的公钥算法，基于 Curve25519 椭圆曲线。</li>
+<li><code>-C &quot;your-email@example.com&quot;</code> 是密钥的注释字段，用于标记密钥的用途或所有者，通常会放置邮箱地址以便辨认。<br>键入上述代码后回车，命令行提示输入文件名，可以指定自定义路径和文件名。</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enter file in which to save the key (/home/username/.ssh/id_ed25519):</span><br></pre></td></tr></table></figure>
+<p>在提示时输入你的自定义路径和文件名，例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/username/.ssh/my_custom_ed25519_key</span><br></pre></td></tr></table></figure>
+<p>接下来，命令行会询问你是否要设置密码短语。如果希望添加额外的安全层次，可以输入一个密码短语，或者直接按 Enter 键跳过<br>这将在本地生成一对 SSH 密钥：</p>
+<ul>
+<li>公钥通常保存在 <code>~/.ssh/id_ed25519.pub</code> 中</li>
+<li>私钥通常保存在 <code>~/.ssh/id_ed25519</code> 中<br>完成后，可以将生成的公钥上传到平台（如 GitHub）以用于认证</li>
+</ul>
+<h3 id="管理多个密钥"><a href="#管理多个密钥" class="headerlink" title="管理多个密钥"></a><strong>管理多个密钥</strong></h3><p>如果生成了多个 SSH 密钥，并希望在使用 <code>ssh</code> 或 <code>git</code> 等服务时使用特定的密钥，可以通过 <code>~/.ssh/config</code> 文件进行配置，在已有的config文件中添加如下语句：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">第一个 GitHub 账户的配置</span></span><br><span class="line">Host github.blog  # 你可以自定义这个 Host 名称</span><br><span class="line">    HostName github.com  # 这一行必须是 github.com</span><br><span class="line">    User git</span><br><span class="line">    IdentityFile ~/.ssh/id_ed25519_first</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">第二个 GitHub 账户的配置</span></span><br><span class="line">Host github.com  # 你可以自定义这个 Host 名称</span><br><span class="line">    HostName github.com  # 这一行必须是 github.com</span><br><span class="line">    User git</span><br><span class="line">    IdentityFile ~/.ssh/id_ed25519_second</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>Host</code> 是本地配置，只是为了方便在本地使用不同的SSH配置而创建的名称，<code>HostName</code>才指向服务器</li>
+<li><code>User git</code>这行代码中的<code>git</code>不能替换，是一种约定俗成的标准，并不是一个自定义的字段</li>
+<li><code>IdentityFile ~/.ssh/id_ed25519_first</code>这行代码指定某个远程主机应该使用的私钥，这样任何连接到 github.com 的操作都会使用指定的密钥文件</li>
+</ul>
+<p>克隆仓库时使用在<code>.ssh/config</code>文件中定义的<code>Host</code>别名：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.blog:your-first-user/your-repo.git  # 第一个账户的仓库</span><br><span class="line">git clone git@github.com:your-second-user/your-repo.git # 第二个账户的仓库</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h3 id="上传公钥到Github"><a href="#上传公钥到Github" class="headerlink" title="上传公钥到Github"></a><strong>上传公钥到Github</strong></h3><ul>
+<li><p>打开Github的网页端，点击右上角账号的头像<br><a href="/../img/Git/githubprofile.jpg" class="gallery-item" style="box-shadow: none;"> <img src="/../img/Git/githubprofile.jpg"></a></p>
+</li>
+<li><p>点击红色箭头指向的“Settings”，点开如下：<br><a href="/../img/Git/SSH.jpg" class="gallery-item" style="box-shadow: none;"> <img src="/../img/Git/SSH.jpg"></a></p>
+</li>
+<li><p>点开后点击右上角绿色按钮添加SSH key：<br><a href="/../img/Git/SSHset.jpg" class="gallery-item" style="box-shadow: none;"> <img src="/../img/Git/SSHset.jpg"></a></p>
+</li>
+<li><p>填写Title，复制生成的<code>.pub</code>格式的公钥内容，粘贴到key中，最后点击“Add SSH key”：<br><a href="/../img/Git/SSHupload.jpg" class="gallery-item" style="box-shadow: none;"> <img src="/../img/Git/SSHupload.jpg"></a></p>
+</li>
+</ul>
+<h3 id="验证连接"><a href="#验证连接" class="headerlink" title="验证连接"></a><strong>验证连接</strong></h3><p>打开本地命令行窗口，输入如下代码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.blog</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里的<code>github.blog</code>就是<code>.ssh\config</code>里添加的<code>Host</code>别名</li>
+<li>如果一切正常，则会如下所示：<br><a href="/../img/Git/cmdtest.jpg" class="gallery-item" style="box-shadow: none;"> <img src="/../img/Git/cmdtest.jpg"></a></li>
+</ul>
+</div>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2025-05-17</span>
+            
+                <span>该篇文章被 Xingzhe Tung</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Git/'>
+                            Git
+                        </a>
+                    
+                        <a href='/tags/%E6%8A%80%E6%9C%AF%E5%A4%96%E5%9B%B4/'>
+                            技术外围
+                        </a>
+                    
+                        <a href='/tags/%E6%8C%87%E5%8D%97/'>
+                            指南
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/Git/'>
+                            Git
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    
+        
+            
+    
+            <div class="post-footer-pre-next">
+                
+
+                
+            </div>
+    
+        
+    
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+            © 1949-2025 China 
+
+            
+                
+
+            
+        </span>
+       
+    
+</div>
+
+
+
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>给岁月以文明</span>
+            
+                <span class="footer-last-span-right"><i>本站由<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">Hexo</a>驱动｜使用<a target="_blank" rel="noopener" href="https://github.com/HiNinoJay/hexo-theme-A4">Hexo-theme-A4</a>主题</i></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery/lightgallery.umd.min.js"></script>
+
+
+
+<script src="/js/lightgallery/plugins/lg-thumbnail.umd.min.js"></script>
+
+
+
+<script src="/js/lightgallery/plugins/lg-fullscreen.umd.min.js"></script>
+
+
+<script src="/js/lightgallery/plugins/lg-autoplay.umd.min.js"></script>
+
+
+<script src="/js/lightgallery/plugins/lg-zoom.umd.min.js"></script>
+
+
+<script src="/js/lightgallery/plugins/lg-rotate.umd.min.js"></script>
+
+
+<script src="/js/lightgallery/plugins/lg-paper.umd.min.js"></script>
+
+
+
+
+<script type="text/javascript">
+     
+    if (typeof lightGallery !== "undefined") {
+        var options1 = {
+            selector: '.gallery-item',
+            plugins: [lgThumbnail, lgFullscreen, lgAutoplay, lgZoom, lgRotate, lgPager], // 启用插件
+            thumbnail: true,          // 显示缩略图
+            zoom: true,               // 启用缩放功
+            rotate: true,             // 启用旋转功能能
+            autoplay: true,        // 启用自动播放功能
+            fullScreen: true,      // 启用全屏功能
+            pager: false, //页码,
+            zoomFromOrigin: true,   // 从原始位置缩放
+            actualSize: true,       // 启用查看实际大小的功能
+            enableZoomAfter: 300,    // 延迟缩放，确保图片加载完成后可缩放
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1); // 修复选择器
+    }
+    
+</script>
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>
+<script src="/js/emojiHandler.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    wrapEmojis('.paper');
+  });
+</script>
