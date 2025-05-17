@@ -4,7 +4,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
-    <meta name="description" content="SSH解决私有Github仓库的同步问题" />
+    <meta name="description" content="通过Github Pages和Hexo搭建Blog" />
     <meta name="hexo-theme-A4" content="v1.9.8" />
     <link rel="alternate icon" type="image/webp" href="/img/pillow.webp">
     <title>Xiaohu&#39;s Blog | 小虎的博客</title>
@@ -358,7 +358,7 @@
         
             
                 <div class="post-main-title" style="text-align: center;">
-                    SSH解决私有Github仓库的同步问题
+                    通过Github Pages和Hexo搭建Blog
                 </div>
             
         
@@ -377,13 +377,13 @@
                     
                         &nbsp; | &nbsp;
                     
-                     <span>字数总计：776</span>
+                     <span>字数总计：1.3k</span>
                 
                 
                     
                         &nbsp; | &nbsp;
                     
-                    <span>阅读估时：3分钟</span>
+                    <span>阅读估时：5分钟</span>
                 
                 
                     
@@ -399,53 +399,78 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AE%A4%E8%AF%81%E4%B8%8E%E8%BF%9E%E6%8E%A5"><span class="post-toc-text">认证与连接</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%94%9F%E6%88%90SSH%E5%85%AC%E9%92%A5%E4%B8%8E%E7%A7%81%E9%92%A5"><span class="post-toc-text">生成SSH公钥与私钥</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%E5%AF%86%E9%92%A5"><span class="post-toc-text">管理多个密钥</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%8A%E4%BC%A0%E5%85%AC%E9%92%A5%E5%88%B0Github"><span class="post-toc-text">上传公钥到Github</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%AA%8C%E8%AF%81%E8%BF%9E%E6%8E%A5"><span class="post-toc-text">验证连接</span></a></li></ol></li></ol>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%90%AD%E5%BB%BABlog%E7%9A%84%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="post-toc-text">搭建Blog的准备工作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFGithub-Pages%E5%92%8CHexo"><span class="post-toc-text">什么是Github Pages和Hexo</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BB%BA%E7%AB%8BGithub%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="post-toc-text">建立Github远程仓库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E6%9C%AC%E5%9C%B0%E7%BC%96%E8%BE%91%E7%9B%AE%E5%BD%95%E5%B9%B6%E5%85%B3%E8%81%94Github%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="post-toc-text">创建本地编辑目录并关联Github远程仓库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9C%AC%E5%9C%B0%E8%BF%90%E8%A1%8C%E5%8D%9A%E5%AE%A2-%E9%83%A8%E7%BD%B2%E5%88%B0Github-Pages"><span class="post-toc-text">本地运行博客&amp;部署到Github Pages</span></a></li></ol>
             
         
-        <div class=".article-gallery"><h2 id="认证与连接"><a href="#认证与连接" class="headerlink" title="认证与连接"></a>认证与连接</h2><p>安装好Git后，可以通过SSH设置来解决私有仓库的连接与认证问题</p>
-<h3 id="生成SSH公钥与私钥"><a href="#生成SSH公钥与私钥" class="headerlink" title="生成SSH公钥与私钥"></a><strong>生成SSH公钥与私钥</strong></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C &quot;your-email@example.com&quot;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>ssh-keygen</code>是SSH生成公钥私钥的命令</li>
-<li><code>-t ed25519</code>指定了密钥类型为 Ed25519。ed25519表示一种<strong>SSH 密钥类型</strong>，具体来说，它是一种使用 EdDSA（椭圆曲线数字签名算法）协议的公钥算法，基于 Curve25519 椭圆曲线。</li>
-<li><code>-C &quot;your-email@example.com&quot;</code> 是密钥的注释字段，用于标记密钥的用途或所有者，通常会放置邮箱地址以便辨认。<br>键入上述代码后回车，命令行提示输入文件名，可以指定自定义路径和文件名。</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enter file in which to save the key (/home/username/.ssh/id_ed25519):</span><br></pre></td></tr></table></figure>
-<p>在提示时输入你的自定义路径和文件名，例如：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/username/.ssh/my_custom_ed25519_key</span><br></pre></td></tr></table></figure>
-<p>接下来，命令行会询问你是否要设置密码短语。如果希望添加额外的安全层次，可以输入一个密码短语，或者直接按 Enter 键跳过<br>这将在本地生成一对 SSH 密钥：</p>
-<ul>
-<li>公钥通常保存在 <code>~/.ssh/id_ed25519.pub</code> 中</li>
-<li>私钥通常保存在 <code>~/.ssh/id_ed25519</code> 中<br>完成后，可以将生成的公钥上传到平台（如 GitHub）以用于认证</li>
-</ul>
-<h3 id="管理多个密钥"><a href="#管理多个密钥" class="headerlink" title="管理多个密钥"></a><strong>管理多个密钥</strong></h3><p>如果生成了多个 SSH 密钥，并希望在使用 <code>ssh</code> 或 <code>git</code> 等服务时使用特定的密钥，可以通过 <code>~/.ssh/config</code> 文件进行配置，在已有的config文件中添加如下语句：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">第一个 GitHub 账户的配置</span></span><br><span class="line">Host github.blog  # 你可以自定义这个 Host 名称</span><br><span class="line">    HostName github.com  # 这一行必须是 github.com</span><br><span class="line">    User git</span><br><span class="line">    IdentityFile ~/.ssh/id_ed25519_first</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">第二个 GitHub 账户的配置</span></span><br><span class="line">Host github.com  # 你可以自定义这个 Host 名称</span><br><span class="line">    HostName github.com  # 这一行必须是 github.com</span><br><span class="line">    User git</span><br><span class="line">    IdentityFile ~/.ssh/id_ed25519_second</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>Host</code> 是本地配置，只是为了方便在本地使用不同的SSH配置而创建的名称，<code>HostName</code>才指向服务器</li>
-<li><code>User git</code>这行代码中的<code>git</code>不能替换，是一种约定俗成的标准，并不是一个自定义的字段</li>
-<li><code>IdentityFile ~/.ssh/id_ed25519_first</code>这行代码指定某个远程主机应该使用的私钥，这样任何连接到 github.com 的操作都会使用指定的密钥文件</li>
-</ul>
-<p>克隆仓库时使用在<code>.ssh/config</code>文件中定义的<code>Host</code>别名：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.blog:your-first-user/your-repo.git  # 第一个账户的仓库</span><br><span class="line">git clone git@github.com:your-second-user/your-repo.git # 第二个账户的仓库</span><br></pre></td></tr></table></figure>
+        <div class=".article-gallery"><h2 id="搭建Blog的准备工作"><a href="#搭建Blog的准备工作" class="headerlink" title="搭建Blog的准备工作"></a>搭建Blog的准备工作</h2><ol>
+<li>安装有Git和Nodejs的Windows本地计算机（最好也有安装Vscode）</li>
+<li>Github账号</li>
+<li>良好的网络环境和试错脾气</li>
+</ol>
+<h2 id="什么是Github-Pages和Hexo"><a href="#什么是Github-Pages和Hexo" class="headerlink" title="什么是Github Pages和Hexo"></a>什么是Github Pages和Hexo</h2><p>Gemini 2.0 flash：</p>
+<p>GitHub Pages 是 GitHub 提供的静态网站托管服务。你可以将你的 HTML、CSS、JavaScript 等静态网页文件上传到 GitHub 仓库，然后 GitHub Pages 就会帮你把这些文件部署成一个可以通过网址访问的网站。</p>
+<p>Hexo 是一个快速、简洁且高效的静态博客框架，它基于 Node.js。你可以使用 Markdown (或其他标记语言) 编写博客文章，然后 Hexo 会根据你选择的主题将这些文章生成静态网页。<br>参考网址：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">https://hexo.io/zh-cn/docs/</a></p>
+<h2 id="建立Github远程仓库"><a href="#建立Github远程仓库" class="headerlink" title="建立Github远程仓库"></a>建立Github远程仓库</h2><p>建议建立两个仓库，分别作为存放搭建Blog源码的仓库和展示Blog的仓库。</p>
+<ol>
+<li>这里“存放搭建Blog源码”的仓库命名为src-blog</li>
+</ol>
+<p><a href="/../img/blog/createsrcrepo.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/createsrcrepo.png"></a><br>这个仓库的作用是不受本地设备的更换影响，同时可以保存Blog中文章的源文件<br>所以，可以将仓库设置为Private<br>点击右下角的“Create repository”完成第一个仓库的创建</p>
+<ol start="2">
+<li>建立展示Blog的仓库，即Github Pages</li>
+</ol>
+<p><a href="/../img/blog/createblogrepo.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/createblogrepo.png"></a><br>这里要十分小心，repo必须是左侧“Owner”对应的名称+“.github.io”，即图中的<code>xxx.github.io</code>中的xxx就是Github账户名<br>这里的仓库设置为“Public”<br>点击右下角的“Create repository”完成第二个仓库的创建</p>
+<h2 id="创建本地编辑目录并关联Github远程仓库"><a href="#创建本地编辑目录并关联Github远程仓库" class="headerlink" title="创建本地编辑目录并关联Github远程仓库"></a>创建本地编辑目录并关联Github远程仓库</h2><p>建议文件夹路径不包含中文<br>假设准备在本地的“demo”文件夹创建src-blog并进行编辑，按照如下顺序进行操作：</p>
+<ol>
+<li>在demo文件夹下创建src-blog空文件夹</li>
+<li>安装hexo，并在src-blog空文件夹中执行<code>hexo init</code>命令</li>
+<li>在src-blog文件夹中执行git相关命令，关联至远程仓库</li>
+</ol>
+<p>下面是详细步骤：</p>
+<p>首先安装hexo，右键点击src-blog空文件夹空白处，点击“在终端中打开”：</p>
+<p><a href="/../img/blog/openemptycmd.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/openemptycmd.png"></a></p>
+<p>终端中键入命令并回车，等待安装Hexo成功：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 
+<p>如下即是安装成功：</p>
+<p><a href="/../img/blog/npmHexo.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/npmHexo.png"></a></p>
+<p>再在终端中键入Hexo初始化的指令：<code>hexo init</code>，回车执行指令，如下图即初始化完毕，src-blog文件夹中创建了hexo相关文件：<br><a href="/../img/blog/hexoinit.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/hexoinit.png"></a></p>
+<p>至此，本地编辑目录已经配置完毕，接下来链接Github远程仓库。</p>
+<p>先打开远程的“src-blog”仓库，复制仓库的地址：</p>
+<p><a href="/../img/blog/pasteSSH.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/pasteSSH.png"></a></p>
+<p>回到本地的“src-blog”文件夹，右键点击“在终端中打开”：</p>
+<p><a href="/../img/blog/opencmd.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/opencmd.png"></a><br>终端中输入<code>git init</code>，回车，再依次输入如下git指令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:你的用户名/src-blog.git</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin main --allow-unrelated-histories</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>！！！如果因为Github私密仓库的问题无法拉取远程仓库，可以参考我的博客文章：SSH解决私有Github仓库的同步问题</p>
+</blockquote>
+<p><a href="/../img/blog/linkrepo.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/linkrepo.png"></a></p>
+<p>至此，本地目录已经和远程仓库建立了连接<br><code>git pull origin main --allow-unrelated-histories</code>是从远程拉取代码到当前目录，允许不相关历史合并<br>建议后续使用Vscode打开“src-blog”文件夹进行编写</p>
+<h2 id="本地运行博客-部署到Github-Pages"><a href="#本地运行博客-部署到Github-Pages" class="headerlink" title="本地运行博客&amp;部署到Github Pages"></a>本地运行博客&amp;部署到Github Pages</h2><p>通过Vscode打开src-blog文件夹，在目录空白处右键点击“在集成终端中打开”：</p>
+<p><a href="/../img/blog/vscodecmd.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/vscodecmd.png"></a></p>
+<p>由于Vscode 默认用 <code>master</code> 分支，所以在打开的集成终端中需要修改默认分支为<code>main</code>，修改的命令是：<code>git branch -m master main</code>，点击回车后左下方<code>master</code>即改为<code>main</code>：<br><a href="/../img/blog/changemaster.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/changemaster.png"></a></p>
+<p>此时的src-blog文件夹中已经安装好了Hexo，并且关联了Github远程仓库，src-blog&#x2F;source下即是用来存放markdown格式的文章，在执行 <code>hexo init</code> 时已经初始化了一个 <code>Hello World.md</code> 的文章。现在终端中依次执行如下指令即可在本地运行博客：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<p><code>hexo clean </code>用来清理掉 Hexo 生成的一些缓存文件和 <code>public/</code> 文件夹<br><code>hexo g</code> 也可以为<code>hexo generate</code> 用来生成 public 文件<br><code>hexo s</code> 也可以为<code>hexo server</code> 在本地启动一个服务器，打开博客页面</p>
+<p><a href="/../img/blog/trylocal.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/trylocal.png"></a></p>
+<p>此时点击链接，会打开默认浏览器，跳转到本地的4000端口，展示博客：<br><a href="/../img/blog/defaultblog.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/defaultblog.png"></a></p>
+<p>如果本地运行的博客没有问题，即可返回终端，执行部署的命令</p>
+<p>首先在 Hexo 的主配置文件 <code>_config.yml</code> 中设置好 deploy 信息</p>
+<p>打开之前创建的Github Pages仓库，复制SSH链接<br><a href="/../img/blog/pages.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/pages.png"></a></p>
+<p>回到src-blog文件夹中打开<code>_config.yml</code> 文件，添加如下代码，在repo：后粘贴SSH链接：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">git@github.com:你的用户名/你的用户名.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure>
+<p><a href="/../img/blog/deployconfig.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/deployconfig.png"></a><br>修改完毕后记得Ctrl+S保存</p>
+<p>终端中Ctrl+C终止刚才的本地运行<br>然后终端中运行一次安装部署插件的命令（只需一次）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 
-<h3 id="上传公钥到Github"><a href="#上传公钥到Github" class="headerlink" title="上传公钥到Github"></a><strong>上传公钥到Github</strong></h3><ul>
-<li><p>打开Github的网页端，点击右上角账号的头像<br><a href="/../img/Git/githubprofile.jpg" class="gallery-item" style="box-shadow: none;"> <img src="/../img/Git/githubprofile.jpg"></a></p>
-</li>
-<li><p>点击红色箭头指向的“Settings”，点开如下：<br><a href="/../img/Git/SSH.jpg" class="gallery-item" style="box-shadow: none;"> <img src="/../img/Git/SSH.jpg"></a></p>
-</li>
-<li><p>点开后点击右上角绿色按钮添加SSH key：<br><a href="/../img/Git/SSHset.jpg" class="gallery-item" style="box-shadow: none;"> <img src="/../img/Git/SSHset.jpg"></a></p>
-</li>
-<li><p>填写Title，复制生成的<code>.pub</code>格式的公钥内容，粘贴到key中，最后点击“Add SSH key”：<br><a href="/../img/Git/SSHupload.jpg" class="gallery-item" style="box-shadow: none;"> <img src="/../img/Git/SSHupload.jpg"></a></p>
-</li>
-</ul>
-<h3 id="验证连接"><a href="#验证连接" class="headerlink" title="验证连接"></a><strong>验证连接</strong></h3><p>打开本地命令行窗口，输入如下代码：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.blog</span><br></pre></td></tr></table></figure>
-<ul>
-<li>这里的<code>github.blog</code>就是<code>.ssh\config</code>里添加的<code>Host</code>别名</li>
-<li>如果一切正常，则会如下所示：<br><a href="/../img/Git/cmdtest.jpg" class="gallery-item" style="box-shadow: none;"> <img src="/../img/Git/cmdtest.jpg"></a></li>
-</ul>
+<p><a href="/../img/blog/deploynpm.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/deploynpm.png"></a></p>
+<p>一切准备就绪，终端中运行如下指令（也可以是<code>hexo d</code>）即可将src-blog&#x2F;public中的静态网页部署到Github Pages上了:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>Vscode 中的终端显示deploy完毕：<br><a href="/../img/blog/deploydone.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/deploydone.png"></a></p>
+<p>打开Github Pages的仓库页面，右下角显示如图即部署完毕：<br><a href="/../img/blog/pagesdone.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/pagesdone.png"></a><br>至此，可以打开<code>xxx.github.io</code>网址查看部署好的博客啦，可以看到下面的网页截图中，网址已经是GitHub Pages的模样啦<br><a href="/../img/blog/pagesshow.png" class="gallery-item" style="box-shadow: none;"> <img src="/../img/blog/pagesshow.png"></a></p>
 </div>
     </div>
 
@@ -460,10 +485,6 @@
                 <span>打上标签:
                     
                     
-                        <a href='/tags/Git/'>
-                            Git
-                        </a>
-                    
                         <a href='/tags/%E6%8A%80%E6%9C%AF%E5%A4%96%E5%9B%B4/'>
                             技术外围
                         </a>
@@ -472,14 +493,18 @@
                             指南
                         </a>
                     
+                        <a href='/tags/Blog/'>
+                            Blog
+                        </a>
+                    
                 </span>
              
              
                 <span>归为分类:
                     
                     
-                        <a href='/categories/Git/'>
-                            Git
+                        <a href='/categories/Blog/'>
+                            Blog
                         </a>
                     
                 </span>
@@ -495,9 +520,10 @@
     
             <div class="post-footer-pre-next">
                 
-                    <span>上一篇：<a href='/2025/05/17/%E9%80%9A%E8%BF%87Github%20Pages%E5%92%8CHexo%E6%90%AD%E5%BB%BABlog/'>通过Github Pages和Hexo搭建Blog</a></span>
-                
 
+                
+                    <span class="post-footer-pre-next-last-span-right">下一篇：<a href="/2025/05/17/SSH%E8%A7%A3%E5%86%B3%E7%A7%81%E6%9C%89Github%E4%BB%93%E5%BA%93%E7%9A%84%E5%90%8C%E6%AD%A5%E9%97%AE%E9%A2%98/">SSH解决私有Github仓库的同步问题</a>
+                    </span>
                 
             </div>
     
